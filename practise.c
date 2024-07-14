@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-#define BUFFER_SIZE 15
+#define BUFFER_SIZE 10
 int main(int argc, char *argv[])
 {
     int fd = open(argv[1],O_RDONLY);
@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     if (fd != -1)
     {
         ssize_t numRead = read(fd, buf, BUFFER_SIZE - 1);
+        printf("%zu\n", numRead);
         while (numRead > 0)
         {
             buf[numRead] = '\0';
@@ -21,7 +22,5 @@ int main(int argc, char *argv[])
         }
     }
     else
-    {
         printf("ERROR\n");
-    }
 }
