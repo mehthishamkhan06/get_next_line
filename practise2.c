@@ -14,6 +14,15 @@ int main(int argc, char *argv[])
 
     if (fd != -1)
     {
-        size_t numread
+        size_t numread = read(fd, buf, BUFFER_SIZE - 1);
+        while(numread > 0)
+        {
+            buf[numread] = '\0';
+            printf("%s", buf);
+            numread = read(fd, buf, BUFFER_SIZE - 1);
+        }
+    }
+    else{
+        printf("ERROR");
     }
 }
