@@ -1,29 +1,31 @@
 #include "ft_get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	int		i;
-	char	*str;
-
-	str = (char *)s;
-	i = 0;
-	if ((char)c == '\0')
-		return (str + ft_strlen(s));
-	while (s[i] && (char)c != s[i])
-		i++;
-	if ((char)c == s[i])
-		return (str + i);
-	return (NULL);
-}
-
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
 	i = 0;
-	while(str[i])
+	if (!s)
+		return (0);
+	while (s[i])
 		i++;
 	return (i);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*a;
+
+	if (!s)
+		return (0);
+	a = (char *) s;
+	while (*a != (unsigned char) c)
+	{
+		if (!*a)
+			return (0);
+		a++;
+	}
+	return (a);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -38,9 +40,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (res == NULL)
 		return (NULL);
 	while (s1[i])
-		res[i++] = s1[i++];
+	{
+		res[i] = s1[i];
+		i++;
+	}
 	while (s2[j])
-		res[i++] = s2[j++];
-	res[i++] = '\0';
+	{
+		res[i] = s2[j];
+		j++;
+		i++;
+	}
+	res[i] = '\0';
+	free(s1);
 	return (res);
 }
