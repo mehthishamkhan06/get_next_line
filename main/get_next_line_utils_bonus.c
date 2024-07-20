@@ -55,12 +55,3 @@ char	*ft_strjoin(char *s1, char *s2)
 	free (s1);
 	return (res);
 }
-// int	main(void)
-// {
-// 	char	str[20] = "HELLO";
-// 	char	c;
-
-// 	c = 'E';
-// 	printf("%s\n", ft_strchr(str, c));
-// }
-

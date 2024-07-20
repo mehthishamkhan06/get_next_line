@@ -79,30 +79,17 @@ char	*next_line(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[1024];
 	char		*res;
 	int			i;
 
 	i = 1;
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || fd > 1024)
 		return (0);
-	str = reader(fd, str, BUFFER_SIZE);
-	if (!str)
+	str[fd] = reader(fd, str[fd], BUFFER_SIZE);
+	if (!str[fd])
 		return (NULL);
-	res = present_line(str);
-	str = next_line(str);
+	res = present_line(str[fd]);
+	str[fd] = next_line(str[fd]);
 	return (res);
-}
-
-int main()
-{
-	int fd;
-
-	fd = open("file.txt", O_RDONLY);
-	printf("%d\n", fd);
-	if (fd == -1)
-		printf("ERROR");
-
-	printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
 }
